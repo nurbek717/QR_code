@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>QR Code Generator</title>
+
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        text-align: center;
+        background-color: #f9f9f9;
+        padding: 20px;
+      }
+      h1 {
+        color: #333;
+      }
+      #qrInput {
+        width: 300px;
+        padding: 10px;
+        margin: 10px 0;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+        font-size: 16px;
+      }
+      button {
+        padding: 10px 20px;
+        background-color: #4caf50;
+        color: white;
+        border: none;
+        border-radius: 5px;
+        font-size: 16px;
+        cursor: pointer;
+      }
+      button:hover {
+        background-color: #45a049;
+      }
+      #qrCode {
+        width: 200px;
+        padding: 10px;
+        border: 1px solid #ddd;
+        border-radius: 5px;
+        display: block;
+        background-color: #fff;
+        border: 2px rgb(226, 101, 43) solid;
+        margin: 50px auto;
+      }
+
+      img {
+        width: 200px;
+        height: 200px;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>QR Code Generator</h1>
+    <input type="text" id="qrInput" placeholder="Matn yoki URL kiriting" />
+    <button onclick="generateQRCode()">QR Kod Yaratish</button>
+    <div id="qrCode"></div>
+
+    <script src="https://cdn.jsdelivr.net/npm/qrcode/build/qrcode.min.js"></script>
+    <script>
+      function generateQRCode() {
+        const qrDiv = document.getElementById("qrCode");
+        qrDiv.innerHTML = ""; // Oldingi QR kodni o'chirish
+        const input = document.getElementById("qrInput").value;
+
+        if (input) {
+          QRCode.toDataURL(
+            input,
+            { width: 200, margin: 2 },
+            function (error, url) {
+              if (error) {
+                console.error(error);
+              } else {
+                const img = document.createElement("img");
+                img.src = url;
+                qrDiv.appendChild(img);
+              }
+            }
+          );
+        } else {
+          alert("Iltimos, matn yoki URL kiriting!");
+        }
+      }
+    </script>
+  </body>
+</html>
